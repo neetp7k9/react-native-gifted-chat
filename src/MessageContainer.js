@@ -122,6 +122,9 @@ export default class MessageContainer extends React.Component {
     if (this.props.renderMessage) {
       return this.props.renderMessage(messageProps);
     }
+    if (message.type != "request") {
+      return <Text>Test </Text>;
+    }
     return <Message {...messageProps}/>;
   }
 
