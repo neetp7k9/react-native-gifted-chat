@@ -54,19 +54,32 @@ export default class Message extends React.Component {
     return <Avatar {...avatarProps} />;
   }
 
+  renderTemplate() {
+    if (this.props.renderTemplate) {
+      return this.props.renderTemplate(this.props);
+    }
+    return;
+  }
+
   render() {
-    return (
-      <View>
-        {this.renderDay()}
-        <View style={[styles[this.props.position].container, {
-          marginBottom: isSameUser(this.props.currentMessage, this.props.nextMessage) ? 2 : 10,
-        }, this.props.containerStyle[this.props.position]]}>
-          {this.props.position === 'left' ? this.renderAvatar() : null}
-          {this.renderBubble()}
-          {this.props.position === 'right' ? this.renderAvatar() : null}
+    if(this.props.currentMessage.type === 'template') {
+        <View>
+          {this.renderTemplate(this.props)}
         </View>
-      </View>
-    );
+    } else {
+      return (
+        <View>
+          {this.renderDay()}
+          <View style={[styles[this.props.position].container, {
+            marginBottom: isSameUser(this.props.currentMessage, this.props.nextMessage) ? 2 : 10,
+          }, this.props.containerStyle[this.props.position]]}>
+            {this.props.position === 'left' ? this.renderAvatar() : null}
+            {this.renderBubble()}
+            {this.props.position === 'right' ? this.renderAvatar() : null}
+          </View>
+        </View>
+      );
+    }
   }
 }
 
