@@ -53,32 +53,34 @@ export default class Message extends React.Component {
     }
     return <Avatar {...avatarProps} />;
   }
-
-  renderTemplate() {
+  renderTemplate(message) {
     if (this.props.renderTemplate) {
-      return this.props.renderTemplate(this.props);
-    }
+      return this.props.renderTemplate(message);
+    }   
     return;
   }
-
   render() {
     if(this.props.currentMessage.type === 'template') {
-        <View>
-          {this.renderTemplate(this.props)}
-        </View>
-    } else {
+      console.log('render template') 
+      console.log('render template', this.props.currentMessage) 
       return (
-        <View>
-          {this.renderDay()}
-          <View style={[styles[this.props.position].container, {
-            marginBottom: isSameUser(this.props.currentMessage, this.props.nextMessage) ? 2 : 10,
-          }, this.props.containerStyle[this.props.position]]}>
-            {this.props.position === 'left' ? this.renderAvatar() : null}
-            {this.renderBubble()}
-            {this.props.position === 'right' ? this.renderAvatar() : null}
+          <View>
+            {this.renderTemplate(this.props.currentMessage)}
           </View>
-        </View>
       );
+    } else {
+    return (
+      <View>
+        {this.renderDay()}
+        <View style={[styles[this.props.position].container, {
+          marginBottom: isSameUser(this.props.currentMessage, this.props.nextMessage) ? 2 : 10,
+        }, this.props.containerStyle[this.props.position]]}>
+          {this.props.position === 'left' ? this.renderAvatar() : null}
+          {this.renderBubble()}
+          {this.props.position === 'right' ? this.renderAvatar() : null}
+        </View>
+      </View>
+    );
     }
   }
 }
