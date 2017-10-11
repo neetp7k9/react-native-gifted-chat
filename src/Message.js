@@ -61,8 +61,6 @@ export default class Message extends React.Component {
   }
   render() {
     if(this.props.currentMessage.type === 'template') {
-      console.log('render template') 
-      console.log('render template', this.props.currentMessage) 
       return (
           <View>
             {this.renderTemplate(this.props.currentMessage)}
